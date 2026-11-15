@@ -1,0 +1,323 @@
+state,district,date,poverty_absolute,poverty_relative,year
+Johor,Batu Pahat,2022-01-01,5.1,19.4,2022
+Johor,Batu Pahat,2024-01-01,2.4,11.6,2024
+Johor,Johor Bahru,2022-01-01,3.7,10.4,2022
+Johor,Johor Bahru,2024-01-01,1.9,9.9,2024
+Johor,Kluang,2022-01-01,7.2,27.4,2022
+Johor,Kluang,2024-01-01,5.7,24.8,2024
+Johor,Kota Tinggi,2022-01-01,5,17,2022
+Johor,Kota Tinggi,2024-01-01,4.2,22.7,2024
+Johor,Kulai,2022-01-01,0.4,7.4,2022
+Johor,Kulai,2024-01-01,0.1,6.3,2024
+Johor,Mersing,2022-01-01,12.7,33.1,2022
+Johor,Mersing,2024-01-01,6.7,25,2024
+Johor,Muar,2022-01-01,6.1,23.5,2022
+Johor,Muar,2024-01-01,2.1,16.1,2024
+Johor,Pontian,2022-01-01,5.1,21.1,2022
+Johor,Pontian,2024-01-01,2,25.7,2024
+Johor,Segamat,2022-01-01,7.4,23.3,2022
+Johor,Segamat,2024-01-01,3.1,16.8,2024
+Johor,Tangkak,2022-01-01,6.9,28.2,2022
+Johor,Tangkak,2024-01-01,4,19.2,2024
+Kedah,Baling,2022-01-01,14.4,19.7,2022
+Kedah,Baling,2024-01-01,14.7,24,2024
+Kedah,Bandar Baharu,2022-01-01,3.9,14.5,2022
+Kedah,Bandar Baharu,2024-01-01,5.8,20.5,2024
+Kedah,Kota Setar,2022-01-01,5.1,9.5,2022
+Kedah,Kota Setar,2024-01-01,5.5,10.4,2024
+Kedah,Kuala Muda,2022-01-01,13.8,15.7,2022
+Kedah,Kuala Muda,2024-01-01,11.8,16.5,2024
+Kedah,Kubang Pasu,2022-01-01,3.3,6.1,2022
+Kedah,Kubang Pasu,2024-01-01,4,6.4,2024
+Kedah,Kulim,2022-01-01,11.4,11.3,2022
+Kedah,Kulim,2024-01-01,8.5,13.3,2024
+Kedah,Langkawi,2022-01-01,5.7,5.5,2022
+Kedah,Langkawi,2024-01-01,6,8.3,2024
+Kedah,Padang Terap,2022-01-01,8.9,11.3,2022
+Kedah,Padang Terap,2024-01-01,8,8,2024
+Kedah,Pendang,2022-01-01,7.3,12.5,2022
+Kedah,Pendang,2024-01-01,7.3,16.3,2024
+Kedah,Pokok Sena,2022-01-01,7.2,9.2,2022
+Kedah,Pokok Sena,2024-01-01,7.2,6.3,2024
+Kedah,Sik,2022-01-01,4,9.4,2022
+Kedah,Sik,2024-01-01,8.7,14.3,2024
+Kedah,Yan,2022-01-01,6,12.4,2022
+Kedah,Yan,2024-01-01,7.4,13.6,2024
+Kelantan,Bachok,2022-01-01,12.1,10.4,2022
+Kelantan,Bachok,2024-01-01,11.3,12.1,2024
+Kelantan,Gua Musang,2022-01-01,18.5,12,2022
+Kelantan,Gua Musang,2024-01-01,16.3,7.5,2024
+Kelantan,Jeli,2022-01-01,11.3,17.9,2022
+Kelantan,Jeli,2024-01-01,10.1,19.3,2024
+Kelantan,Kecil Lojing,2022-01-01,43.8,43.8,2022
+Kelantan,Kecil Lojing,2024-01-01,20,6.7,2024
+Kelantan,Kota Bharu,2022-01-01,10.5,7.5,2022
+Kelantan,Kota Bharu,2024-01-01,9.9,6.7,2024
+Kelantan,Kuala Krai,2022-01-01,22.4,30.6,2022
+Kelantan,Kuala Krai,2024-01-01,20.2,22.8,2024
+Kelantan,Machang,2022-01-01,12,14.6,2022
+Kelantan,Machang,2024-01-01,7.3,10.9,2024
+Kelantan,Pasir Mas,2022-01-01,9,10.9,2022
+Kelantan,Pasir Mas,2024-01-01,8.6,11.4,2024
+Kelantan,Pasir Puteh,2022-01-01,15.9,12.3,2022
+Kelantan,Pasir Puteh,2024-01-01,11.1,17.6,2024
+Kelantan,Tanah Merah,2022-01-01,17.9,14.7,2022
+Kelantan,Tanah Merah,2024-01-01,14.9,11.6,2024
+Kelantan,Tumpat,2022-01-01,13.5,11.2,2022
+Kelantan,Tumpat,2024-01-01,12.7,8,2024
+Melaka,Alor Gajah,2022-01-01,4.8,14.1,2022
+Melaka,Alor Gajah,2024-01-01,4.5,11.4,2024
+Melaka,Jasin,2022-01-01,5.5,16,2022
+Melaka,Jasin,2024-01-01,1.1,10,2024
+Melaka,Melaka Tengah,2022-01-01,3.7,12.2,2022
+Melaka,Melaka Tengah,2024-01-01,2.8,10,2024
+Negeri Sembilan,Jelebu,2022-01-01,7.3,29.9,2022
+Negeri Sembilan,Jelebu,2024-01-01,6.4,27.5,2024
+Negeri Sembilan,Jempol,2022-01-01,8,21.8,2022
+Negeri Sembilan,Jempol,2024-01-01,7.1,21.4,2024
+Negeri Sembilan,Kuala Pilah,2022-01-01,6.8,31.5,2022
+Negeri Sembilan,Kuala Pilah,2024-01-01,6.2,27.8,2024
+Negeri Sembilan,Port Dickson,2022-01-01,4.9,13.8,2022
+Negeri Sembilan,Port Dickson,2024-01-01,4.4,16.7,2024
+Negeri Sembilan,Rembau,2022-01-01,3,19,2022
+Negeri Sembilan,Rembau,2024-01-01,2.6,19.9,2024
+Negeri Sembilan,Seremban,2022-01-01,3,7.5,2022
+Negeri Sembilan,Seremban,2024-01-01,2.8,6.2,2024
+Negeri Sembilan,Tampin,2022-01-01,7.3,21.5,2022
+Negeri Sembilan,Tampin,2024-01-01,7,15.1,2024
+Pahang,Bentong,2022-01-01,2.8,0,2022
+Pahang,Bentong,2024-01-01,2,0.3,2024
+Pahang,Bera,2022-01-01,8.5,10,2022
+Pahang,Bera,2024-01-01,9,18.5,2024
+Pahang,Cameron Highlands,2022-01-01,1.9,0,2022
+Pahang,Cameron Highlands,2024-01-01,5,1.7,2024
+Pahang,Jerantut,2022-01-01,8.6,15.3,2022
+Pahang,Jerantut,2024-01-01,8.8,14.3,2024
+Pahang,Kuantan,2022-01-01,4.1,5,2022
+Pahang,Kuantan,2024-01-01,3.7,5.1,2024
+Pahang,Lipis,2022-01-01,9.2,8.6,2022
+Pahang,Lipis,2024-01-01,9.2,0.8,2024
+Pahang,Maran,2022-01-01,8.8,12.1,2022
+Pahang,Maran,2024-01-01,7.9,7.9,2024
+Pahang,Pekan,2022-01-01,11.6,15.4,2022
+Pahang,Pekan,2024-01-01,10.9,8.5,2024
+Pahang,Raub,2022-01-01,2.3,1.1,2022
+Pahang,Raub,2024-01-01,3.4,0.8,2024
+Pahang,Rompin,2022-01-01,12,14.9,2022
+Pahang,Rompin,2024-01-01,8.2,3.9,2024
+Pahang,Temerloh,2022-01-01,6.6,8.7,2022
+Pahang,Temerloh,2024-01-01,6.2,13.1,2024
+Perak,Bagan Datuk,2022-01-01,12.4,19.8,2022
+Perak,Bagan Datuk,2024-01-01,11.5,18.6,2024
+Perak,Batang Padang,2022-01-01,13.3,18.1,2022
+Perak,Batang Padang,2024-01-01,11.5,18.5,2024
+Perak,Hilir Perak,2022-01-01,14.8,22.3,2022
+Perak,Hilir Perak,2024-01-01,12.3,15.4,2024
+Perak,Hulu Perak,2022-01-01,16.3,18.5,2022
+Perak,Hulu Perak,2024-01-01,13.3,11.6,2024
+Perak,Kampar,2022-01-01,4.7,10.3,2022
+Perak,Kampar,2024-01-01,4.5,22.4,2024
+Perak,Kerian,2022-01-01,8.7,18.9,2022
+Perak,Kerian,2024-01-01,7.3,9.2,2024
+Perak,Kinta,2022-01-01,3.8,9.4,2022
+Perak,Kinta,2024-01-01,3.8,10,2024
+Perak,Kuala Kangsar,2022-01-01,13,17.2,2022
+Perak,Kuala Kangsar,2024-01-01,11.3,12.8,2024
+Perak,Larut & Matang,2024-01-01,9,7.9,2024
+Perak,Larut dan Matang,2022-01-01,9.2,14.4,2022
+Perak,Manjung,2022-01-01,3.8,11.1,2022
+Perak,Manjung,2024-01-01,3.9,7.6,2024
+Perak,Muallim,2022-01-01,9.2,14.8,2022
+Perak,Muallim,2024-01-01,7.7,10.9,2024
+Perak,Perak Tengah,2022-01-01,11.1,17.3,2022
+Perak,Perak Tengah,2024-01-01,10.2,15.9,2024
+Perak,Selama,2022-01-01,5.3,18.9,2022
+Perak,Selama,2024-01-01,10.4,11.5,2024
+Perlis,Perlis,2022-01-01,4,12.6,2022
+Pulau Pinang,Barat Daya,2022-01-01,1.4,9,2022
+Pulau Pinang,Barat Daya,2024-01-01,0.4,7.5,2024
+Pulau Pinang,S.P. Selatan,2024-01-01,3,18.7,2024
+Pulau Pinang,S.P.Tengah,2024-01-01,2.8,17.4,2024
+Pulau Pinang,S.P.Utara,2024-01-01,3.9,18,2024
+Pulau Pinang,Seberang Perai Selatan,2022-01-01,3.1,18.2,2022
+Pulau Pinang,Seberang Perai Tengah,2022-01-01,2.4,16.6,2022
+Pulau Pinang,Seberang Perai Utara,2022-01-01,3.7,18.7,2022
+Pulau Pinang,Timur Laut,2022-01-01,0.7,14.5,2022
+Pulau Pinang,Timur Laut,2024-01-01,0.4,14.3,2024
+Sabah,Beaufort,2022-01-01,19.8,13.8,2022
+Sabah,Beaufort,2024-01-01,20.4,25.3,2024
+Sabah,Beluran,2022-01-01,37.7,29.1,2022
+Sabah,Beluran,2024-01-01,33,17,2024
+Sabah,Kalabakan,2022-01-01,33.3,21.8,2022
+Sabah,Kalabakan,2024-01-01,26.8,35.5,2024
+Sabah,Keningau,2022-01-01,18.8,10.3,2022
+Sabah,Keningau,2024-01-01,12.8,11.5,2024
+Sabah,Kinabatangan,2022-01-01,28.9,18.2,2022
+Sabah,Kinabatangan,2024-01-01,26.7,10.4,2024
+Sabah,Kota Belud,2022-01-01,27.8,29.8,2022
+Sabah,Kota Belud,2024-01-01,26.1,17,2024
+Sabah,Kota Kinabalu,2022-01-01,10.3,8,2022
+Sabah,Kota Kinabalu,2024-01-01,12,7.7,2024
+Sabah,Kota Marudu,2022-01-01,49.9,38.4,2022
+Sabah,Kota Marudu,2024-01-01,40,38.8,2024
+Sabah,Kuala Penyu,2022-01-01,17.6,20.6,2022
+Sabah,Kuala Penyu,2024-01-01,14.3,30.4,2024
+Sabah,Kudat,2022-01-01,34.7,32.5,2022
+Sabah,Kudat,2024-01-01,35.3,32.3,2024
+Sabah,Kunak,2022-01-01,25.4,13.9,2022
+Sabah,Kunak,2024-01-01,29.2,26.1,2024
+Sabah,Lahad Datu,2022-01-01,23.5,14.6,2022
+Sabah,Lahad Datu,2024-01-01,13.6,3.4,2024
+Sabah,Membakut,2024-01-01,27.4,21.4,2024
+Sabah,Nabawan,2022-01-01,27.1,10.4,2022
+Sabah,Nabawan,2024-01-01,25.4,15.9,2024
+Sabah,Papar,2022-01-01,16.2,10.5,2022
+Sabah,Papar,2024-01-01,12,9,2024
+Sabah,Penampang,2022-01-01,6.7,5.6,2022
+Sabah,Penampang,2024-01-01,5.7,5.9,2024
+Sabah,Pitas,2022-01-01,52.7,46.7,2022
+Sabah,Pitas,2024-01-01,50,44.6,2024
+Sabah,Putatan,2022-01-01,12.9,7.9,2022
+Sabah,Putatan,2024-01-01,6.9,3.4,2024
+Sabah,Ranau,2022-01-01,25.4,21.1,2022
+Sabah,Ranau,2024-01-01,23.5,27.9,2024
+Sabah,Sandakan,2022-01-01,17.7,10,2022
+Sabah,Sandakan,2024-01-01,15.2,12,2024
+Sabah,Semporna,2022-01-01,28,16.9,2022
+Sabah,Semporna,2024-01-01,30.4,24,2024
+Sabah,Sipitang,2022-01-01,22.1,15.1,2022
+Sabah,Sipitang,2024-01-01,15.3,9,2024
+Sabah,Tambunan,2022-01-01,9,13.5,2022
+Sabah,Tambunan,2024-01-01,8.3,13.9,2024
+Sabah,Tawau,2022-01-01,14.4,12.5,2022
+Sabah,Tawau,2024-01-01,13.2,13,2024
+Sabah,Telupid,2022-01-01,20.8,16.7,2022
+Sabah,Telupid,2024-01-01,22,12.2,2024
+Sabah,Tenom,2022-01-01,15.8,12.4,2022
+Sabah,Tenom,2024-01-01,12.1,17.7,2024
+Sabah,Tongod,2022-01-01,50.8,23.7,2022
+Sabah,Tongod,2024-01-01,41.5,28,2024
+Sabah,Tuaran,2022-01-01,25.8,19.2,2022
+Sabah,Tuaran,2024-01-01,23.7,13.9,2024
+Sarawak,Asajaya,2022-01-01,17.9,19.9,2022
+Sarawak,Asajaya,2024-01-01,14,26.2,2024
+Sarawak,Bau,2022-01-01,8.3,18.7,2022
+Sarawak,Bau,2024-01-01,6.2,17.8,2024
+Sarawak,Belaga,2022-01-01,19.5,28.1,2022
+Sarawak,Belaga,2024-01-01,13.6,27.3,2024
+Sarawak,Beluru,2022-01-01,13.7,18.9,2022
+Sarawak,Beluru,2024-01-01,10.1,11.6,2024
+Sarawak,Betong,2022-01-01,9.8,21.3,2022
+Sarawak,Betong,2024-01-01,7.6,23.9,2024
+Sarawak,Bintulu,2022-01-01,3.5,1.9,2022
+Sarawak,Bintulu,2024-01-01,3.7,3.2,2024
+Sarawak,Bukit Mabong,2022-01-01,8.2,39.2,2022
+Sarawak,Bukit Mabong,2024-01-01,6.3,54.2,2024
+Sarawak,Dalat,2022-01-01,11.1,19,2022
+Sarawak,Dalat,2024-01-01,10.1,31.9,2024
+Sarawak,Daro,2022-01-01,32.5,34.5,2022
+Sarawak,Daro,2024-01-01,26.8,27.7,2024
+Sarawak,Gedong,2024-01-01,16.7,35.7,2024
+Sarawak,Julau,2022-01-01,31.2,46.8,2022
+Sarawak,Julau,2024-01-01,26.6,38,2024
+Sarawak,Kabong,2022-01-01,8.6,26.9,2022
+Sarawak,Kabong,2024-01-01,4.5,34.1,2024
+Sarawak,Kanowit,2022-01-01,24.9,45.7,2022
+Sarawak,Kanowit,2024-01-01,21.8,33.3,2024
+Sarawak,Kapit,2022-01-01,20.6,37.9,2022
+Sarawak,Kapit,2024-01-01,15.5,36.2,2024
+Sarawak,Kuching,2022-01-01,9.1,10.1,2022
+Sarawak,Kuching,2024-01-01,7.7,7.9,2024
+Sarawak,Lawas,2022-01-01,18.1,33.7,2022
+Sarawak,Lawas,2024-01-01,14.6,28.1,2024
+Sarawak,Limbang,2022-01-01,14.6,20.5,2022
+Sarawak,Limbang,2024-01-01,14.4,31.1,2024
+Sarawak,Lingga,2024-01-01,6.3,45.8,2024
+Sarawak,Lubok Antu,2022-01-01,14.8,32.7,2022
+Sarawak,Lubok antu,2024-01-01,13,23.2,2024
+Sarawak,Lundu,2022-01-01,13.1,23.2,2022
+Sarawak,Lundu,2024-01-01,12.9,26.9,2024
+Sarawak,Maradong,2022-01-01,19.5,36.4,2022
+Sarawak,Maradong,2024-01-01,16.9,37.2,2024
+Sarawak,Marudi,2022-01-01,12.9,20.6,2022
+Sarawak,Marudi,2024-01-01,4.4,17.7,2024
+Sarawak,Matu,2022-01-01,20.8,30.8,2022
+Sarawak,Matu,2024-01-01,9.1,27.3,2024
+Sarawak,Miri,2022-01-01,6.3,6,2022
+Sarawak,Miri,2024-01-01,3.8,3.5,2024
+Sarawak,Mukah,2022-01-01,14,21.4,2022
+Sarawak,Mukah,2024-01-01,11.9,18.8,2024
+Sarawak,Pakan,2022-01-01,17.6,29.4,2022
+Sarawak,Pakan,2024-01-01,14.5,30.9,2024
+Sarawak,Pantu,2024-01-01,10.9,60,2024
+Sarawak,Pusa,2022-01-01,17.2,28,2022
+Sarawak,Pusa,2024-01-01,14.6,42.7,2024
+Sarawak,Samarahan,2022-01-01,7.9,6.7,2022
+Sarawak,Samarahan,2024-01-01,6.3,7.2,2024
+Sarawak,Saratok,2022-01-01,7.4,12.6,2022
+Sarawak,Saratok,2024-01-01,5,32.9,2024
+Sarawak,Sarikei,2022-01-01,20.9,30,2022
+Sarawak,Sarikei,2024-01-01,17.8,20.5,2024
+Sarawak,Sebauh,2022-01-01,4.8,16.9,2022
+Sarawak,Sebauh,2024-01-01,2.9,17.4,2024
+Sarawak,Sebuyau,2024-01-01,21.4,53.6,2024
+Sarawak,Selangau,2022-01-01,19.6,38,2022
+Sarawak,Selangau,2024-01-01,17.2,20.2,2024
+Sarawak,Serian,2022-01-01,14.6,22.7,2022
+Sarawak,Serian,2024-01-01,11.8,25.5,2024
+Sarawak,Sibu,2022-01-01,10.2,14.8,2022
+Sarawak,Sibu,2024-01-01,6.3,10.1,2024
+Sarawak,Siburan,2024-01-01,4.2,16.7,2024
+Sarawak,Simunjan,2022-01-01,17.9,33.8,2022
+Sarawak,Simunjan,2024-01-01,14.9,35.5,2024
+Sarawak,Song,2022-01-01,15.8,41.2,2022
+Sarawak,Song,2024-01-01,11.3,40.8,2024
+Sarawak,Sri Aman,2022-01-01,8.9,28.4,2022
+Sarawak,Sri Aman,2024-01-01,6.2,25.2,2024
+Sarawak,Subis,2022-01-01,4.7,14,2022
+Sarawak,Subis,2024-01-01,2.4,4.7,2024
+Sarawak,Tanjung Manis,2022-01-01,20.7,33.7,2022
+Sarawak,Tanjung Manis,2024-01-01,15.4,35.9,2024
+Sarawak,Tatau,2022-01-01,5.9,14.1,2022
+Sarawak,Tatau,2024-01-01,2.6,6.5,2024
+Sarawak,Tebedu,2022-01-01,26.9,44.1,2022
+Sarawak,Tebedu,2024-01-01,25.8,46.2,2024
+Sarawak,Telang Usan,2022-01-01,6,20.5,2022
+Sarawak,Telang Usan,2024-01-01,1.3,10,2024
+Selangor,Gombak,2022-01-01,2.4,13.8,2022
+Selangor,Gombak,2024-01-01,2.1,9.8,2024
+Selangor,Klang,2022-01-01,2.2,20.3,2022
+Selangor,Klang,2024-01-01,1,12,2024
+Selangor,Kuala Langat,2022-01-01,0.3,9.4,2022
+Selangor,Kuala Langat,2024-01-01,0.3,2.2,2024
+Selangor,Kuala Selangor,2022-01-01,2.8,25.2,2022
+Selangor,Kuala Selangor,2024-01-01,1.8,21,2024
+Selangor,Petaling,2022-01-01,1.6,14.9,2022
+Selangor,Petaling,2024-01-01,1,10.8,2024
+Selangor,Sabak Bernam,2022-01-01,5.3,42.6,2022
+Selangor,Sabak Bernam,2024-01-01,2.7,25.7,2024
+Selangor,Sepang,2022-01-01,0,3.4,2022
+Selangor,Sepang,2024-01-01,0.1,1.1,2024
+Selangor,Ulu Langat,2022-01-01,0.5,7,2022
+Selangor,Ulu Langat,2024-01-01,0.1,0.3,2024
+Selangor,Ulu Selangor,2022-01-01,1.7,23.9,2022
+Selangor,Ulu Selangor,2024-01-01,0.4,16.7,2024
+Terengganu,Besut,2022-01-01,12.7,11.3,2022
+Terengganu,Besut,2024-01-01,13.1,14.2,2024
+Terengganu,Dungun,2022-01-01,2.2,2.4,2022
+Terengganu,Dungun,2024-01-01,4.4,12.4,2024
+Terengganu,Hulu,2024-01-01,6.6,14.8,2024
+Terengganu,Hulu Terengganu,2022-01-01,10.8,16.2,2022
+Terengganu,Kemaman,2022-01-01,4.1,5.8,2022
+Terengganu,Kemaman,2024-01-01,3.5,6.7,2024
+Terengganu,Kuala Nerus,2022-01-01,1.9,3.5,2022
+Terengganu,Kuala Nerus,2024-01-01,1.6,2.4,2024
+Terengganu,Kuala Terengganu,2022-01-01,5.9,5,2022
+Terengganu,Kuala Terengganu,2024-01-01,4.2,9.4,2024
+Terengganu,Marang,2022-01-01,9,11.8,2022
+Terengganu,Marang,2024-01-01,7.3,13.9,2024
+Terengganu,Setiu,2022-01-01,7.5,6,2022
+Terengganu,Setiu,2024-01-01,4.7,7.7,2024
+W.P. Kuala Lumpur,W.P. Kuala Lumpur,2022-01-01,1.4,12.7,2022
+W.P. Labuan,W.P. Labuan,2022-01-01,2.5,7,2022
+W.P. Putrajaya,W.P. Putrajaya,2022-01-01,0.1,11.4,2022
