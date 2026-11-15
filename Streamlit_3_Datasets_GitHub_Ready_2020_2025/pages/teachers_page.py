@@ -84,7 +84,7 @@ if not ranked.empty:
     top = ranked.iloc[-1]
     top_share = 100 * int(top['teachers']) / total if total else 0.0
     figure(
-        'Figure 3.1 — Top districts by teacher count (2025)',
+        'Top districts by teacher count (2025)',
         teachers_ranking_chart(ranked),
         f'{top["district"]} ({top["state"]}) records the highest number of '
         f'government-school teachers in the selected comparison: '
@@ -99,7 +99,7 @@ else:
 
 # FIGURE 3.2 — Gender composition by primary/secondary stage.
 figure(
-    'Figure 3.2 — Teachers by sex and school stage (2025)',
+    'Teachers by sex and school stage (2025)',
     teachers_sex_chart(sex_view),
     f'Female teachers account for {female_share:.1f}% of the {total:,} '
     f'teachers in {state} ({female:,} female and {male:,} male teachers). '
@@ -185,7 +185,7 @@ else:
         )
 
     figure(
-        'Figure 3.3 — Primary and secondary teachers by state (2025)',
+        'Primary and secondary teachers by state (2025)',
         comparison,
         discussion,
         'Grouped horizontal bar chart · All 16 states/federal territories · '
