@@ -12,7 +12,7 @@ h1, h2, h3 {letter-spacing:-.02em;}
 </style>''', unsafe_allow_html=True)
 
 st.sidebar.markdown('## Malaysia Data Explorer')
-st.sidebar.caption('Scientific Visualisation · Three datasets · Years 2020–2025')
+st.sidebar.caption('Scientific Visualisation · Three datasets ·')
 
 pages = [
     st.Page('pages/population_page.py', title='1 · Population', icon='👥', default=True),
