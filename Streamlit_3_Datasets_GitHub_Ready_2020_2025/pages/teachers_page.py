@@ -200,4 +200,4 @@ st.info(
 )
 
 export_df = df if state == 'Malaysia' else df[df['state'] == state]
-csv_download(export_df, f'teachers_{state.replace(" ", "_")}_2025')
+
