@@ -1,67 +1,3 @@
-"""Page 1: Population distribution and demographic structure in 2025."""
-
-import plotly.graph_objects as go
-import streamlit as st
-
-from analytics import population_overall, population_ranking, population_age_sex
-from charts import (
-    finish,
-    population_ranking as population_ranking_chart,
-    population_pyramid,
-)
-from ui import read_dataset, page_header, figure, csv_download
-
-# Fixed reference year: all three visuals on this page use 2025 only.
-YEAR = 2025
-
-# Population contains overlapping sex/age subtotals. Use sex=both and
-# age=overall ONLY for population totals; use male/female by age for the pyramid.
-raw = read_dataset('population')
-df = raw[(raw['year'] == YEAR) & (raw['ethnicity'] == 'overall')].copy()
-
-if df.empty:
-    st.error('Population data for 2025 is unavailable. Please check the CSV file.')
-    st.stop()
-
-st.sidebar.subheader('Population filters')
-state = st.sidebar.selectbox(
-    'Geographic scope',
-    ['Malaysia'] + sorted(df['state'].dropna().unique().tolist()),
-    key='pop_state',
-)
-st.sidebar.caption('Reference year: **2025** (fixed)')
-
-page_header(
-    'Population Analysis (2025)',
-    'Dataset 1 / 3 · 2025 · Population values in thousands of persons',
-    'To analyse the geographical distribution and age–sex composition of '
-    'Malaysia’s population in 2025 using district and state comparisons.',
-    'population',
-)
-
-# Population totals come from one non-overlapping category only.
-overall = population_overall(df, state)
-if overall.empty:
-    st.warning(f'No population totals are available for {state} in 2025.')
-    st.stop()
-
-population_thousand = float(overall['population'].sum())
-district_count = overall[['state', 'district']].drop_duplicates().shape[0]
-
-# Age-by-sex data for the geographic selection.
-wide = population_age_sex(df, YEAR, state)
-wide['both'] = wide['male'] + wide['female']
-age_total = float(wide['both'].sum())
-older_groups = ['65-69', '70-74', '75-79', '80-84', '85+']
-older_thousand = float(wide.loc[wide['age'].isin(older_groups), 'both'].sum())
-older_share = (100 * older_thousand / age_total) if age_total else 0.0
-
-st.subheader('Summary box')
-c1, c2, c3 = st.columns(3)
-c1.metric('Population (2025)', f'{population_thousand / 1000:,.2f} million')
-c2.metric('Districts in selection', f'{district_count:,}')
-c3.metric('Population aged 65+', f'{older_share:.1f}%')
-st.caption(
     'Population is recorded in thousands. The 65+ share uses summed male and '
     'female five-year age groups; source rounding can cause small differences.'
 )
@@ -158,3 +94,10 @@ figure(
 
 st.info(
     'Methodology: Total population uses sex=both and age=overall, while the '
+    'population pyramid uses male and female age-group estimates. Do not sum '
+    'all demographic rows together because they contain overlapping subtotals. '
+    'This page shows only 2025 and does not make claims about annual growth.'
+)
+
+export_df = df if state == 'Malaysia' else df[df['state'] == state]
+csv_download(export_df, f'population_{state.replace(" ", "_")}_2025')
