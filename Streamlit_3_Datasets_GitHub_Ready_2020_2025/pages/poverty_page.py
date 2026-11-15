@@ -68,7 +68,7 @@ st.caption(
 # FIGURE 2.1: Top 10 absolute poverty rates for the selected geographic scope.
 top = view.nlargest(1, 'poverty_absolute').iloc[0]
 figure(
-    'Figure 2.1 — Districts with the highest absolute poverty (2024)',
+    'Districts with the highest absolute poverty (2024)',
     poverty_ranking(view, n=10, state=state),
     f'The highest absolute poverty rate among districts in {state} is '
     f'{float(top["poverty_absolute"]):.1f}%, recorded in '
@@ -92,7 +92,7 @@ else:
         f'indicating a {direction} linear association. '
     )
 figure(
-    'Figure 2.2 — Absolute versus relative poverty (2024)',
+    'Absolute versus relative poverty (2024)',
     poverty_scatter(view, state=state),
     association +
     'The two measures use different poverty thresholds. Their relationship is '
@@ -162,7 +162,7 @@ selected_context = (
     if state != 'Malaysia' else ''
 )
 figure(
-    'Figure 2.3 — District poverty-rate distribution by state (2024)',
+    'District poverty-rate distribution by state (2024)',
     heatmap,
     f'{leading["state"]} has the highest share of observed districts with '
     f'absolute poverty rates of at least 20% '
