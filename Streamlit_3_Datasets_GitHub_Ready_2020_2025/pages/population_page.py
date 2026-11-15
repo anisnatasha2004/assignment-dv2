@@ -72,7 +72,7 @@ if not ranked.empty:
     top = ranked.iloc[-1]
     share = (100 * float(top['population']) / population_thousand) if population_thousand else 0.0
     figure(
-        'Figure 1.1 — Top districts by population (2025)',
+        'Top districts by population (2025)',
         population_ranking_chart(ranked),
         f'{top["district"]} ({top["state"]}) has the largest population in the '
         f'selected area, at {top["population"]:,.1f} thousand persons '
@@ -85,7 +85,7 @@ if not ranked.empty:
 if age_total:
     largest_age = wide.loc[wide['both'].idxmax(), 'age']
     figure(
-        'Figure 1.2 — Age–sex population pyramid (2025)',
+        'Age–sex population pyramid (2025)',
         population_pyramid(wide),
         f'The largest five-year age group in {state} is {largest_age}. '
         f'People aged 65 years and older represent approximately {older_share:.1f}% '
@@ -150,7 +150,7 @@ else:
     )
 
 figure(
-    'Figure 1.3 — Population by state and federal territory (2025)',
+    'Population by state and federal territory (2025)',
     state_fig,
     state_interpretation,
     'Horizontal bar chart · All 16 states/federal territories · totals from non-overlapping district records.',
