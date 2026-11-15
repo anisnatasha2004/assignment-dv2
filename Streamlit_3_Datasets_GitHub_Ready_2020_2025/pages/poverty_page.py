@@ -1,75 +1,186 @@
-"""Page 2: District poverty. Only observed survey years; no imputation."""
+"""Page 2: Household poverty patterns across Malaysian districts in 2024.
+
+This page presents one survey year only. It does not calculate change since 2022.
+"""
+
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
-from analytics import poverty_view, poverty_changes
-from charts import poverty_ranking, poverty_scatter, poverty_change
+
+from analytics import poverty_view
+from charts import finish, poverty_ranking, poverty_scatter
 from ui import read_dataset, page_header, figure, csv_download
 
-df = read_dataset('poverty')
-st.sidebar.subheader('Household poverty filters')
-years = sorted(df['year'].unique().tolist(), reverse=True)
-year = st.sidebar.selectbox('Survey year (available)', years, key='poverty_year')
-# Important: 2024 has no rows for 4 geographic areas; do not permit invalid selection.
-available_states = sorted(df.loc[df['year'] == year, 'state'].unique().tolist())
-state = st.sidebar.selectbox('Geographic scope', ['Malaysia'] + available_states,
-                             key='poverty_state')
+YEAR = 2024
 
-page_header('Household Poverty by District',
-            'Dataset 2 / 3 · Malaysia · 2022 and 2024 only · Percentages (%)',
-            'Examine geographical differences in poverty rates, their association, and changes in matched districts.',
-            'poverty')
-st.info('**Data availability:** The selected 2020–2025 window contains published district-level observations '
-        '**only for 2022 and 2024**. This dashboard does not interpolate other years. The 2024 file has '
-        'no observations for Perlis, W.P. Kuala Lumpur, W.P. Labuan, or W.P. Putrajaya.')
-
-view = poverty_view(df, year, state)
-changes = poverty_changes(df, state)
-if view.empty:
-    st.warning('No observations available for this year and geographic selection.')
+# District-level poverty rates, not counts of poor households.
+raw = read_dataset('poverty')
+data_2024 = raw.loc[raw['year'] == YEAR].copy()
+if data_2024.empty:
+    st.error('No household poverty observations for 2024 were found in the CSV file.')
     st.stop()
 
+st.sidebar.subheader('Household poverty filters')
+state = st.sidebar.selectbox(
+    'Geographic scope',
+    ['Malaysia'] + sorted(data_2024['state'].dropna().unique().tolist()),
+    key='poverty_state',
+)
+st.sidebar.caption('Reference year: **2024** (fixed)')
+
+page_header(
+    'Household Poverty Analysis (2024)',
+    'Dataset 2 / 3 · 2024 · District-level household poverty rates (%)',
+    'To examine geographic disparities in absolute and relative poverty rates '
+    'across Malaysian districts in 2024, including their statistical association '
+    'and distribution across states.',
+    'poverty',
+)
+
+st.info(
+    '**Data coverage:** The 2024 dataset contains district observations for '
+    '**12 states**; it has no 2024 records for Perlis, W.P. Kuala Lumpur, '
+    'W.P. Labuan or W.P. Putrajaya. These locations are not interpreted as '
+    'having zero poverty.'
+)
+
+view = poverty_view(data_2024, YEAR, state)
+if view.empty:
+    st.warning('No 2024 observations are available for this geographic selection.')
+    st.stop()
+
+# SUMMARY: descriptive statistics over observed districts, not national poverty.
+median_absolute = float(view['poverty_absolute'].median())
+median_relative = float(view['poverty_relative'].median())
+max_row = view.loc[view['poverty_absolute'].idxmax()]
+
 st.subheader('Summary box')
-cols = st.columns(4)
-cols[0].metric(f'District observations · {year}', f'{len(view):,}')
-cols[1].metric('Median absolute poverty', f'{view["poverty_absolute"].median():.1f}%')
-cols[2].metric('Median relative poverty', f'{view["poverty_relative"].median():.1f}%')
-cols[3].metric('Matched districts · 2022/24', f'{len(changes):,}')
-st.caption('Rate summaries are unweighted statistics over districts, not official national rates. '
-           'Changes require exact district-name matches in both years.')
+c1, c2, c3, c4 = st.columns(4)
+c1.metric('District observations', f'{len(view):,}')
+c2.metric('Median absolute poverty', f'{median_absolute:.1f}%')
+c3.metric('Median relative poverty', f'{median_relative:.1f}%')
+c4.metric('Highest absolute poverty', f'{float(max_row["poverty_absolute"]):.1f}%')
+st.caption(
+    f'These are unweighted statistics across observed districts in {state}, '
+'not official population-weighted national or state poverty rates.'
+)
 
+# FIGURE 2.1: Top 10 absolute poverty rates for the selected geographic scope.
 top = view.nlargest(1, 'poverty_absolute').iloc[0]
-figure(f'Figure 2.1 — Highest absolute poverty by district, {year}', poverty_ranking(view, state=state),
-       f'{top["district"]} ({top["state"]}) has the highest absolute poverty rate among the selected '
-       f'districts at {top["poverty_absolute"]:.1f}%. The chart compares the prevalence of poverty among '
-       'households, not the total count of people living in poverty.',
-       'Horizontal bar chart · District absolute poverty rates (%).')
+figure(
+    'Figure 2.1 — Districts with the highest absolute poverty (2024)',
+    poverty_ranking(view, n=10, state=state),
+    f'The highest absolute poverty rate among districts in {state} is '
+    f'{float(top["poverty_absolute"]):.1f}%, recorded in '
+    f'{top["district"]} ({top["state"]}). '
+    'The chart ranks household poverty *rates* rather than numbers of poor households.',
+    'Horizontal bar chart · Up to 10 districts · Absolute household poverty rate (%).',
+)
 
-corr = view[['poverty_absolute', 'poverty_relative']].corr().iloc[0, 1] if len(view) >= 2 else float('nan')
-if pd.notna(corr):
-    corr_text = f'Pearson correlation is r={corr:+.3f} for the selected districts. '
+# FIGURE 2.2: Association between two different poverty measures.
+r = view[['poverty_absolute', 'poverty_relative']].corr().iloc[0, 1]
+if pd.isna(r):
+    association = (
+        'Pearson correlation cannot be calculated for this selection because '
+        'there are insufficient observations or variation in the rates. '
+    )
 else:
-    corr_text = 'There are insufficient varying observations to calculate Pearson correlation. '
-figure(f'Figure 2.2 — Absolute and relative poverty, {year}', poverty_scatter(view, state),
-       corr_text + 'The two measures use different poverty thresholds; the correlation is descriptive '
-       'and does not demonstrate causation.',
-       'Scatter plot · Each marker is a district. Both axes show household rates in percent.')
+    direction = 'positive' if r > 0 else 'negative' if r < 0 else 'zero'
+    association = (
+        f'Across the {len(view)} observed districts in {state}, Pearson '
+        f'correlation between absolute and relative poverty is r = {r:+.3f}, '
+        f'indicating a {direction} linear association. '
+    )
+figure(
+    'Figure 2.2 — Absolute versus relative poverty (2024)',
+    poverty_scatter(view, state=state),
+    association +
+    'The two measures use different poverty thresholds. Their relationship is '
+    'descriptive and does not establish cause and effect.',
+    'Scatter plot · Each marker represents one district · Both axes are rates (%).',
+)
 
-if not changes.empty:
-    biggest = changes.loc[changes['change_pp'].idxmin()]
-    improved = int((changes['change_pp'] < 0).sum())
-    worsened = int((changes['change_pp'] > 0).sum())
-    unchanged = int((changes['change_pp'] == 0).sum())
-    text = (f'{len(changes)} districts matched across 2022 and 2024; absolute poverty fell in '
-            f'{improved}, rose in {worsened}, and was unchanged in {unchanged}. '
-            f'The largest decline occurred in {biggest["district"]} ({biggest["state"]}), '
-            f'at {biggest["change_pp"]:+.1f} percentage points. This describes a change '
-            'in the reported rate, not its causes.')
-    figure('Figure 2.3 — Change in district absolute poverty, 2022–2024', poverty_change(changes),
-           text, 'Diverging bar chart · Twelve largest changes among districts observed in both years; percentage points.')
-else:
-    st.warning('No matched districts available for a 2022–2024 comparison in this geographic selection.')
+# FIGURE 2.3: All-state context, showing the percentage of districts in each
+# absolute-poverty-rate band. Normalising by district count prevents states
+# with many districts from automatically dominating the heatmap.
+bins = [-0.001, 5, 10, 20, 30, float('inf')]
+labels = ['0–<5%', '5–<10%', '10–<20%', '20–<30%', '30%+']
+# right=False means [0,5), [5,10), ... ; negative values are invalid in cleaned data.
+all_states = data_2024.copy()
+all_states['rate_band'] = pd.cut(
+    all_states['poverty_absolute'], bins=bins, labels=labels, right=False
+)
+count_matrix = (
+    all_states.groupby(['state', 'rate_band'], observed=True)
+    .size()
+    .unstack(fill_value=0)
+    .reindex(columns=labels, fill_value=0)
+    .sort_index()
+)
+share_matrix = count_matrix.div(count_matrix.sum(axis=1), axis=0).mul(100.0)
+y_labels = [
+    f'{name}  ◀ selected' if state != 'Malaysia' and name == state else name
+    for name in share_matrix.index
+]
+heatmap = go.Figure(
+    go.Heatmap(
+        x=labels,
+        y=y_labels,
+        z=share_matrix.to_numpy(),
+        customdata=count_matrix.to_numpy(),
+        colorscale='YlOrRd',
+        zmin=0,
+        zmax=100,
+        colorbar=dict(title='Districts (%)'),
+        text=[[f'{value:.0f}%' for value in row] for row in share_matrix.to_numpy()],
+        texttemplate='%{text}',
+        hovertemplate=(
+            'State: %{y}<br>Absolute poverty band: %{x}'
+            '<br>Districts: %{customdata}'
+            '<br>Share of state districts: %{z:.1f}%<extra></extra>'
+        ),
+    )
+)
+heatmap = finish(heatmap, legend=False, height=555)
+heatmap.update_layout(
+    xaxis_title='Absolute poverty rate band (2024)',
+    yaxis_title='',
+    margin=dict(l=30, r=45, t=25, b=55),
+)
+heatmap.update_yaxes(automargin=True, autorange='reversed')
 
-st.info('**Interpretation limitation:** district coverage changes across survey years. '
-        'The 2024 state coverage differs from 2022, so an unweighted average over all rows '
-        'is not a like-for-like national poverty estimate.')
-csv_download(view, f'poverty_{state.replace(" ","_")}_{year}')
+# Dynamic discussion emphasising the high-poverty tail and unequal state coverage.
+high_rate = (
+    all_states.assign(high_rate=all_states['poverty_absolute'] >= 20)
+    .groupby('state', as_index=False)
+    .agg(districts=('district', 'size'), high_rate_districts=('high_rate', 'sum'))
+)
+high_rate['share'] = 100 * high_rate['high_rate_districts'] / high_rate['districts']
+leading = high_rate.sort_values(['share', 'high_rate_districts'], ascending=False).iloc[0]
+selected_context = (
+    f' The row for {state} is marked for comparison with other states.'
+    if state != 'Malaysia' else ''
+)
+figure(
+    'Figure 2.3 — District poverty-rate distribution by state (2024)',
+    heatmap,
+    f'{leading["state"]} has the highest share of observed districts with '
+    f'absolute poverty rates of at least 20% '
+    f'({int(leading["high_rate_districts"])} of '
+    f'{int(leading["districts"])} districts, {leading["share"]:.1f}%). '
+    'The heatmap highlights differences in the distribution of district poverty '
+    'rates between states; the cells are percentages of districts, not '
+    'percentages of poor households.' + selected_context,
+    'Heatmap · All 12 covered states · Each row totals 100% of that state’s '
+    'observed districts; the state filter highlights a row but does not remove '
+    'national comparison rows.',
+)
+
+st.info(
+    '**Interpretation limitation:** This page uses **2024 only** and cannot '
+    'support claims about change over time. Some states and federal territories '
+    'have no observations, and unweighted district summaries must not be '
+    'treated as official national poverty rates.'
+)
+
+csv_download(view, f'poverty_{state.replace(" ", "_")}_2024')
