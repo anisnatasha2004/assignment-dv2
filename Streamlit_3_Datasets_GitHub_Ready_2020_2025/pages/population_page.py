@@ -163,5 +163,4 @@ st.info(
     'This page shows only 2025 and does not make claims about annual growth.'
 )
 
-export_df = df if state == 'Malaysia' else df[df['state'] == state]
-csv_download(export_df, f'population_{state.replace(" ", "_")}_2025')
+
