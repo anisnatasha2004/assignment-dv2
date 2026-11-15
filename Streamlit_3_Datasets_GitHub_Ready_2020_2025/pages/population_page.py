@@ -163,4 +163,4 @@ st.info(
     'This page shows only 2025 and does not make claims about annual growth.'
 )
 
-
+export_df = df if state == 'Malaysia' else df[df['state'] == state]
