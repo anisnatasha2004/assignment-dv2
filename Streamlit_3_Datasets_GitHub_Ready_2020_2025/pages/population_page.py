@@ -1,71 +1,160 @@
-"""Page 1: Population — one dataset, three scientific visualisations."""
-import pandas as pd
+"""Page 1: Population distribution and demographic structure in 2025."""
+
+import plotly.graph_objects as go
 import streamlit as st
-from analytics import AGE_ORDER, population_annual, population_overall, population_ranking, population_age_sex
-from charts import population_trend, population_ranking as population_ranking_chart, population_pyramid
+
+from analytics import population_overall, population_ranking, population_age_sex
+from charts import (
+    finish,
+    population_ranking as population_ranking_chart,
+    population_pyramid,
+)
 from ui import read_dataset, page_header, figure, csv_download
 
+# Fixed reference year: all three visuals on this page use 2025 only.
+YEAR = 2025
+
+# Population contains overlapping sex/age subtotals. Use sex=both and
+# age=overall ONLY for population totals; use male/female by age for the pyramid.
 raw = read_dataset('population')
-# Source has mutually overlapping ethnicity, sex and age subtotals. We keep
-# ethnicity=overall; the pure data functions choose each appropriate age/sex grain.
-df = raw[raw['ethnicity'] == 'overall']
+df = raw[(raw['year'] == YEAR) & (raw['ethnicity'] == 'overall')].copy()
+
+if df.empty:
+    st.error('Population data for 2025 is unavailable. Please check the CSV file.')
+    st.stop()
 
 st.sidebar.subheader('Population filters')
-state = st.sidebar.selectbox('Geographic scope',
-                             ['Malaysia'] + sorted(df['state'].unique().tolist()), key='pop_state')
-year = st.sidebar.slider('Reference year', min_value=2020, max_value=2025,
-                         value=2025, step=1, key='pop_year')
+state = st.sidebar.selectbox(
+    'Geographic scope',
+    ['Malaysia'] + sorted(df['state'].dropna().unique().tolist()),
+    key='pop_state',
+)
+st.sidebar.caption('Reference year: **2025** (fixed)')
 
-page_header('Population by District',
-            'Dataset 1 / 3 · Malaysia · 2020–2025 · Population measured in thousands',
-            'Examine population growth, differences between districts, and the age–sex distribution.',
-            'population')
+page_header(
+    'Population Analysis (2025)',
+    'Dataset 1 / 3 · 2025 · Population values in thousands of persons',
+    'To analyse the geographical distribution and age–sex composition of '
+    'Malaysia’s population in 2025 using district and state comparisons.',
+    'population',
+)
 
-annual = population_annual(df, state)
-ref = float(annual.loc[annual['year'] == year, 'population'].iloc[0])
-baseline = float(annual.loc[annual['year'] == 2020, 'population'].iloc[0])
-growth = 100 * (ref / baseline - 1) if baseline else None
-key_count = len(population_overall(df, state).query('year == @year'))
+# Population totals come from one non-overlapping category only.
+overall = population_overall(df, state)
+if overall.empty:
+    st.warning(f'No population totals are available for {state} in 2025.')
+    st.stop()
+
+population_thousand = float(overall['population'].sum())
+district_count = overall[['state', 'district']].drop_duplicates().shape[0]
+
+# Age-by-sex data for the geographic selection.
+wide = population_age_sex(df, YEAR, state)
+wide['both'] = wide['male'] + wide['female']
+age_total = float(wide['both'].sum())
+older_groups = ['65-69', '70-74', '75-79', '80-84', '85+']
+older_thousand = float(wide.loc[wide['age'].isin(older_groups), 'both'].sum())
+older_share = (100 * older_thousand / age_total) if age_total else 0.0
 
 st.subheader('Summary box')
 c1, c2, c3 = st.columns(3)
-c1.metric(f'Population · {year}', f'{ref/1000:,.2f} million')
-c2.metric('Change since 2020', 'N/A' if growth is None else f'{growth:+.1f}%')
-c3.metric(f'District keys · {year}', f'{key_count:,}')
-st.caption('Population units: **thousand persons** in charts; million persons in the summary box. District keys reflect administrative units recorded for the selected year.')
+c1.metric('Population (2025)', f'{population_thousand / 1000:,.2f} million')
+c2.metric('Districts in selection', f'{district_count:,}')
+c3.metric('Population aged 65+', f'{older_share:.1f}%')
+st.caption(
+    'Population is recorded in thousands. The 65+ share uses summed male and '
+    'female five-year age groups; source rounding can cause small differences.'
+)
 
-first = float(annual.iloc[0]['population'])
-last = float(annual.iloc[-1]['population'])
-diff_pct = 100*(last/first-1) if first else 0
-trend = ('increased' if last >= first else 'decreased')
-figure('Figure 1.1 — Population trend, 2020–2025', population_trend(annual, state),
-       f'Across {state}, the combined district estimates {trend} from {first/1000:,.2f} million persons in 2020 '
-       f'to {last/1000:,.2f} million in 2025 ({diff_pct:+.1f}%). '
-       'This is a descriptive population estimate, not evidence of a specific cause of change.',
-       'Line chart · Source category: sex=both, age=overall, ethnicity=overall; districts summed once per year.')
+# FIGURE 1.1: Largest districts in the selected geographical scope.
+ranked = population_ranking(df, YEAR, state, n=10)
+if not ranked.empty:
+    top = ranked.iloc[-1]
+    share = (100 * float(top['population']) / population_thousand) if population_thousand else 0.0
+    figure(
+        'Figure 1.1 — Top districts by population (2025)',
+        population_ranking_chart(ranked),
+        f'{top["district"]} ({top["state"]}) has the largest population in the '
+        f'selected area, at {top["population"]:,.1f} thousand persons '
+        f'({share:.1f}% of the area total). The ranking highlights differences '
+        'in population concentration across districts.',
+        'Horizontal bar chart · Up to ten districts · sex=both, age=overall, ethnicity=overall.',
+    )
 
-ranked = population_ranking(df, year, state, n=10)
-top = ranked.iloc[-1]
-share = 100 * float(top['population']) / ref if ref else 0
-figure(f'Figure 1.2 — Largest districts in {year}', population_ranking_chart(ranked),
-       f'{top["district"]} ({top["state"]}) has the largest recorded population in this selection, '
-       f'at {top["population"]:,.1f} thousand people, about {share:.1f}% of the selected geographic total. '
-       'Rankings compare district sizes in the same year, avoiding year-to-year boundary ambiguities.',
-       'Horizontal bar chart · Ten highest-population districts (or fewer if the chosen state has fewer districts).')
+# FIGURE 1.2: Population age–sex structure in the selected geography.
+if age_total:
+    largest_age = wide.loc[wide['both'].idxmax(), 'age']
+    figure(
+        'Figure 1.2 — Age–sex population pyramid (2025)',
+        population_pyramid(wide),
+        f'The largest five-year age group in {state} is {largest_age}. '
+        f'People aged 65 years and older represent approximately {older_share:.1f}% '
+        'of the age-classified population. The chart shows how population '
+        'composition differs by age and sex, rather than change over time.',
+        'Mirrored horizontal bars · Male (left), female (right) · thousands of persons.',
+    )
 
-wide = population_age_sex(df, year, state)
-wide['both'] = wide['male'] + wide['female']
-max_age = wide.loc[wide['both'].idxmax(), 'age']
-older = float(wide.loc[wide['age'].isin(['65-69','70-74','75-79','80-84','85+']), 'both'].sum())
-age_total = float(wide['both'].sum())
-older_share = 100 * older / age_total if age_total else 0
-figure(f'Figure 1.3 — Age–sex population pyramid, {year}', population_pyramid(wide),
-       f'The largest five-year age group is {max_age} years. People aged 65 and older account for '
-       f'approximately {older_share:.1f}% of the age-group population total in {state}. '
-       'The pyramid shows how sex and age structure vary; minor differences from overall totals may arise from source rounding.',
-       'Mirrored horizontal bars · Male on the left, female on the right; counts are in thousands.')
+# FIGURE 1.3: Comparison of every state/federal territory in 2025.
+# Deliberately use national data so a selected state can be compared with others.
+national = population_overall(df, 'Malaysia')
+state_totals = (
+    national.groupby('state', as_index=False)['population']
+    .sum()
+    .sort_values('population', ascending=True)
+)
 
-st.info('Comparability note: the uploaded population file has 160 districts per year in 2020–2024 and 166 in 2025. '
-        'Interpret changes in individual district boundaries cautiously; annual national/state totals are more suitable for broad trends.')
-csv_download(df[(df['year'] == year) & ((df['state']==state) if state != 'Malaysia' else True)],
-             f'population_{state.replace(" ", "_")}_{year}')
+bar_colors = [
+    '#e18d42' if (state != 'Malaysia' and name == state) else '#3167a7'
+    for name in state_totals['state']
+]
+state_fig = go.Figure(
+    go.Bar(
+        x=state_totals['population'],
+        y=state_totals['state'],
+        orientation='h',
+        marker_color=bar_colors,
+        text=state_totals['population'],
+        texttemplate='%{text:,.0f}',
+        textposition='outside',
+        hovertemplate='%{y}: %{x:,.1f} thousand persons<extra></extra>',
+    )
+)
+state_fig = finish(state_fig, legend=False, height=540)
+state_fig.update_layout(
+    xaxis_title='Population (thousand persons)',
+    yaxis_title='',
+    margin=dict(l=25, r=90, t=25, b=40),
+)
+state_fig.update_yaxes(automargin=True)
+
+largest_state = state_totals.iloc[-1]
+national_total = float(state_totals['population'].sum())
+if state == 'Malaysia':
+    state_interpretation = (
+        f'{largest_state["state"]} has the highest population in 2025, '
+        f'with {largest_state["population"] / 1000:,.2f} million persons '
+        f'({100 * largest_state["population"] / national_total:.1f}% of the '
+        'combined district population). State population totals vary substantially.'
+    )
+else:
+    selected_population = float(
+        state_totals.loc[state_totals['state'] == state, 'population'].iloc[0]
+    )
+    rank = int((state_totals['population'] > selected_population).sum() + 1)
+    state_interpretation = (
+        f'{state} ranks {rank} of {len(state_totals)} states/federal territories '
+        f'by population in 2025, with {selected_population / 1000:,.2f} million '
+        f'persons ({100 * selected_population / national_total:.1f}% of the '
+        'combined district population). The highlighted bar shows the selected '
+        'area in national context.'
+    )
+
+figure(
+    'Figure 1.3 — Population by state and federal territory (2025)',
+    state_fig,
+    state_interpretation,
+    'Horizontal bar chart · All 16 states/federal territories · totals from non-overlapping district records.',
+)
+
+st.info(
+    'Methodology: Total population uses sex=both and age=overall, while the '
