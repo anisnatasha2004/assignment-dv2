@@ -25,7 +25,7 @@ def read_dataset(name: str) -> pd.DataFrame:
 def page_header(title: str, subtitle: str, objective: str, source: str) -> None:
     st.title(title)
     st.caption(subtitle)
-    st.markdown(f'**Visualisation objective:** {objective}')
+    st.markdown(f'**Objective:** {objective}')
     st.caption(f'Source: [OpenDOSM — {source}]({SOURCES[source]}) · Original official datasets, filtered to 2020–2025')
     st.divider()
 
